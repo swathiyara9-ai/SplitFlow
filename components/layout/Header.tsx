@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import { Menu, Search, X, LayoutDashboard, Users, User, Settings, LogOut, Bell } from 'lucide-react';
 import { Profile } from '@/types';
 import { logoutAction } from '@/actions/auth';
+import { createClient } from '@/lib/supabase/client';
+import { getDashboardData } from '@/services/dashboard';
 
 interface HeaderProps {
   profile: Profile | null;
@@ -14,8 +17,38 @@ interface HeaderProps {
 export default function Header({ profile }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const supabase = createClient();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const activityStorageKey = `splitflow-last-viewed-activity-at:${profile?.id || 'current'}`;
+  const [lastViewedActivityAt, setLastViewedActivityAt] = useState<string | null>(() =>
+    typeof window === 'undefined' ? null : localStorage.getItem(activityStorageKey)
+  );
+
+  const { data: dashboard } = useQuery({
+    queryKey: ['dashboard'],
+    queryFn: () => getDashboardData(supabase),
+  });
+
+  useEffect(() => {
+    const handleActivityViewed = (event: Event) => {
+      const viewedAt = event instanceof CustomEvent ? event.detail?.viewedAt : null;
+      setLastViewedActivityAt(viewedAt || localStorage.getItem(activityStorageKey));
+    };
+
+    window.addEventListener('splitflow-activity-viewed', handleActivityViewed);
+    window.addEventListener('storage', handleActivityViewed);
+
+    return () => {
+      window.removeEventListener('splitflow-activity-viewed', handleActivityViewed);
+      window.removeEventListener('storage', handleActivityViewed);
+    };
+  }, [activityStorageKey]);
+
+  const latestActivityAt = dashboard?.activities?.[0]?.created_at;
+  const hasUnreadActivity = latestActivityAt
+    ? !lastViewedActivityAt || new Date(latestActivityAt) > new Date(lastViewedActivityAt)
+    : false;
 
   // Generate breadcrumb from path
   const getBreadcrumb = () => {
@@ -79,7 +112,9 @@ export default function Header({ profile }: HeaderProps) {
             href="/dashboard?view=activity"
             className="p-2 glass-panel rounded-xl text-slate-600 dark:text-slate-300 relative shadow-sm hover:bg-slate-100/50 dark:hover:bg-slate-900/50"
           >
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-danger animate-pulse"></span>
+            {hasUnreadActivity && (
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-danger animate-pulse"></span>
+            )}
             <Bell className="w-4 h-4" />
           </Link>
         </div>

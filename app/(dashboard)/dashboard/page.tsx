@@ -1,8 +1,8 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { 
   ArrowUpRight, 
@@ -16,7 +16,8 @@ import {
   Activity, 
   PieChart, 
   Sparkles,
-  DollarSign
+  DollarSign,
+  Search
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { getCurrentProfile } from '@/services/profile';
@@ -26,9 +27,12 @@ import { useRealtimeSubscription } from '@/hooks/useRealtime';
 import { useCurrency } from '@/components/CurrencyProvider';
 
 function DashboardContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const searchFilter = searchParams.get('search')?.toLowerCase() || '';
+  const searchQuery = searchParams.get('search')?.trim() || '';
+  const searchFilter = searchQuery.toLowerCase();
+  const view = searchParams.get('view');
+  const isActivityView = view === 'activity';
+  const activityRef = useRef<HTMLDivElement>(null);
   
   const supabase = createClient();
   const [copied, setCopied] = useState(false);
@@ -53,15 +57,69 @@ function DashboardContent() {
   useRealtimeSubscription('activity_logs', [['dashboard']]);
   useRealtimeSubscription('profiles', [['profile']]);
 
-  const handleCopyId = () => {
-    if (profile?.unique_user_id) {
-      navigator.clipboard.writeText(profile.unique_user_id);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
+  const userId = profile?.id || '';
+  const groupsData = useMemo(() => dashboard?.groupsData || [], [dashboard?.groupsData]);
+  const groups = useMemo(() => dashboard?.groups || [], [dashboard?.groups]);
+  const activities = useMemo(() => dashboard?.activities || [], [dashboard?.activities]);
   const isLoading = isProfileLoading || isDashboardLoading;
+
+  const searchResults = useMemo(() => {
+    if (!searchFilter) {
+      return {
+        groups,
+        expenses: [] as { group: typeof groups[number]; expense: (typeof groupsData)[number]['expenses'][number] }[],
+        members: [] as { group: typeof groups[number]; member: (typeof groupsData)[number]['members'][number] }[],
+      };
+    }
+
+    const groupMatches = groups.filter((group) =>
+      group.name.toLowerCase().includes(searchFilter) ||
+      (group.description || '').toLowerCase().includes(searchFilter)
+    );
+
+    const expenseMatches = groupsData.flatMap(({ group, expenses }) =>
+      expenses
+        .filter((expense) =>
+          expense.title.toLowerCase().includes(searchFilter) ||
+          (expense.description || '').toLowerCase().includes(searchFilter)
+        )
+        .map((expense) => ({ group, expense }))
+    );
+
+    const memberMatches = groupsData.flatMap(({ group, members }) =>
+      members
+        .filter((member) => {
+          const displayName = member.profiles?.display_name || '';
+          const uniqueUserId = member.profiles?.unique_user_id || '';
+          return (
+            displayName.toLowerCase().includes(searchFilter) ||
+            uniqueUserId.toLowerCase().includes(searchFilter)
+          );
+        })
+        .map((member) => ({ group, member }))
+    );
+
+    return {
+      groups: groupMatches,
+      expenses: expenseMatches,
+      members: memberMatches,
+    };
+  }, [groups, groupsData, searchFilter]);
+
+  const hasSearch = searchFilter.length > 0;
+  const hasSearchResults =
+    searchResults.groups.length > 0 ||
+    searchResults.expenses.length > 0 ||
+    searchResults.members.length > 0;
+
+  useEffect(() => {
+    if (!isActivityView || isLoading) return;
+
+    const viewedAt = new Date().toISOString();
+    localStorage.setItem(`splitflow-last-viewed-activity-at:${profile?.id || 'current'}`, viewedAt);
+    window.dispatchEvent(new CustomEvent('splitflow-activity-viewed', { detail: { viewedAt } }));
+    activityRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [isActivityView, isLoading, profile?.id]);
 
   if (isLoading) {
     return (
@@ -81,20 +139,17 @@ function DashboardContent() {
   }
 
   // Calculate Balances
-  const userId = profile?.id || '';
-  const groupsData = dashboard?.groupsData || [];
-  
   const balances = calculateGlobalBalances(userId, groupsData);
-  const groups = dashboard?.groups || [];
+  const visibleGroups = hasSearch ? searchResults.groups : groups;
+  const visibleActivities = isActivityView ? activities : activities.slice(0, 5);
 
-  // Filter groups if search is active
-  const filteredGroups = groups.filter(g => 
-    g.name.toLowerCase().includes(searchFilter) || 
-    (g.description && g.description.toLowerCase().includes(searchFilter))
-  );
-
-  // Group activity logs matching search filter or just recent
-  const activities = dashboard?.activities || [];
+  const handleCopyId = () => {
+    if (profile?.unique_user_id) {
+      navigator.clipboard.writeText(profile.unique_user_id);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   // Outflow chart calculations
   const categoryTotals: Record<string, number> = {};
@@ -185,7 +240,9 @@ function DashboardContent() {
         {/* Active Groups Column */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Shared Groups</h3>
+            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              {hasSearch ? `Search Results for "${searchQuery}"` : 'Shared Groups'}
+            </h3>
             <Link 
               href="/groups" 
               className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
@@ -194,7 +251,15 @@ function DashboardContent() {
             </Link>
           </div>
 
-          {filteredGroups.length === 0 ? (
+          {hasSearch && !hasSearchResults ? (
+            <div className="glass-panel rounded-premium p-8 text-center space-y-3 shadow-layered">
+              <Search className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto" />
+              <h4 className="text-sm font-bold">No results found for &quot;{searchQuery}&quot;</h4>
+              <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                Try a group name, expense title, member name, or SPL user ID.
+              </p>
+            </div>
+          ) : visibleGroups.length === 0 && !hasSearch ? (
             <div className="glass-panel rounded-premium p-8 text-center space-y-4 shadow-layered">
               <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mx-auto">
                 <Users className="w-6 h-6" />
@@ -213,8 +278,10 @@ function DashboardContent() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {filteredGroups.map((group) => {
+            <>
+              {visibleGroups.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {visibleGroups.map((group) => {
                 const groupNet = balances.groupSummaries[group.id] || 0;
                 const membersCount = groupsData.find((gd) => gd.group.id === group.id)?.members.length || 1;
 
@@ -265,7 +332,55 @@ function DashboardContent() {
                   </Link>
                 );
               })}
-            </div>
+                </div>
+              )}
+
+              {hasSearch && (searchResults.expenses.length > 0 || searchResults.members.length > 0) && (
+                <div className="space-y-3">
+                  {searchResults.expenses.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Matching Expenses</h4>
+                      {searchResults.expenses.map(({ group, expense }) => (
+                        <Link
+                          key={expense.id}
+                          href={`/groups/${group.id}`}
+                          className="glass-panel rounded-xl p-3 flex items-center justify-between gap-3 hover:border-primary/30 transition-all"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold truncate">{expense.title}</p>
+                            <p className="text-[10px] text-slate-400 truncate">
+                              {group.name}{expense.description ? ` - ${expense.description}` : ''}
+                            </p>
+                          </div>
+                          <span className="text-xs font-bold text-primary shrink-0">{format(Number(expense.amount))}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {searchResults.members.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Matching Members</h4>
+                      {searchResults.members.map(({ group, member }) => (
+                        <Link
+                          key={`${group.id}-${member.user_id}`}
+                          href={`/groups/${group.id}`}
+                          className="glass-panel rounded-xl p-3 flex items-center justify-between gap-3 hover:border-primary/30 transition-all"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold truncate">{member.profiles?.display_name || 'Member'}</p>
+                            <p className="text-[10px] text-slate-400 truncate">{group.name}</p>
+                          </div>
+                          <span className="text-[10px] font-mono font-bold text-primary shrink-0">
+                            {member.profiles?.unique_user_id || 'SPL-UNKNOWN'}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -289,7 +404,7 @@ function DashboardContent() {
                   <div key={c.name} className="space-y-1">
                     <div className="flex justify-between text-[10px] font-bold">
                       <span className="capitalize">{c.name}</span>
-                      <span>${c.value.toFixed(0)} ({c.percentage}%)</span>
+                      <span>{format(c.value)} ({c.percentage}%)</span>
                     </div>
                     <div className="w-full bg-slate-100 dark:bg-slate-900 h-1.5 rounded-full overflow-hidden">
                       <div 
@@ -304,10 +419,12 @@ function DashboardContent() {
           </div>
 
           {/* Activity Log */}
-          <div className="glass-panel rounded-premium p-5 shadow-layered space-y-4">
+          <div ref={activityRef} className="glass-panel rounded-premium p-5 shadow-layered space-y-4 scroll-mt-24">
             <div className="flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
-              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Recent Activity</h3>
+              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                {isActivityView ? 'Activity Feed' : 'Recent Activity'}
+              </h3>
             </div>
 
             {activities.length === 0 ? (
@@ -317,12 +434,15 @@ function DashboardContent() {
               </div>
             ) : (
               <div className="relative border-l-2 border-slate-100 dark:border-slate-900 pl-4 ml-1 space-y-4">
-                {activities.slice(0, 5).map((act) => (
+                {visibleActivities.map((act) => (
                   <div key={act.id} className="relative text-xs space-y-0.5">
                     {/* Circle icon marker */}
                     <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white dark:ring-slate-950"></span>
                     <p className="font-semibold text-slate-800 dark:text-slate-200">
-                      {act.description.replace(/\$/g, currency.symbol)}
+                      {act.description
+                        .replace(/\$/g, currency.symbol)
+                        .replace(/\((\d+(?:\.\d{2})?)\)/g, `(${currency.symbol}$1)`)
+                        .replace(/\bfor (\d+(?:\.\d{2})?)\b/g, `for ${currency.symbol}$1`)}
                     </p>
                     <span className="text-[10px] text-slate-400 block">
                       {new Date(act.created_at).toLocaleDateString(undefined, { 

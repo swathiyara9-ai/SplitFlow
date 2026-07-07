@@ -49,7 +49,7 @@ export async function createSettlement(
       group_id: input.group_id,
       performed_by: currentUser.id,
       action: 'settlement_completed',
-      description: `${payerName} settled with ${receiverName} for $${Number(input.amount).toFixed(2)}`,
+      description: `${payerName} settled with ${receiverName} for ${Number(input.amount).toFixed(2)}`,
     });
 
   return { data: data as Settlement, error: null };

@@ -68,7 +68,7 @@ export default function GroupDetailsPage() {
   const queryClient = useQueryClient();
   const supabase = createClient();
   const id = params.id as string;
-  const { format } = useCurrency();
+  const { format, currency } = useCurrency();
 
   // Tabs state
   const [activeTab, setActiveTab] = useState<'expenses' | 'balances' | 'settlements' | 'members' | 'activity'>('expenses');
@@ -127,7 +127,7 @@ export default function GroupDetailsPage() {
   useRealtimeSubscription('expense_participants', [['group-expenses', id]]);
   useRealtimeSubscription('settlements', [['group-settlements', id], ['group-activities', id]]);
   useRealtimeSubscription('group_members', [['group-members', id], ['group-activities', id]]);
-  useRealtimeSubscription('activity_logs', [['group-activities', id]]);
+  useRealtimeSubscription('activity_logs', [['group-activities', id], ['dashboard']]);
 
   // 3. Balance Calculations
   const allParticipants = expenses.flatMap((e) => e.participants);
@@ -750,7 +750,10 @@ export default function GroupDetailsPage() {
                     <div key={act.id} className="relative text-xs space-y-1">
                       <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white dark:ring-slate-950"></span>
                       <p className="font-semibold text-slate-800 dark:text-slate-200">
-                        {act.description.replace(/\$/g, currency.symbol)}
+                        {act.description
+                          .replace(/\$/g, currency.symbol)
+                          .replace(/\((\d+(?:\.\d{2})?)\)/g, `(${currency.symbol}$1)`)
+                          .replace(/\bfor (\d+(?:\.\d{2})?)\b/g, `for ${currency.symbol}$1`)}
                       </p>
                       <span className="text-[10px] text-slate-400 block font-semibold">
                         Log entry by {act.profiles?.display_name || 'System'} • {new Date(act.created_at).toLocaleDateString(undefined, { 
@@ -807,9 +810,9 @@ export default function GroupDetailsPage() {
 
                 {/* Amount */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Amount ($ USD)</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Amount ({currency.symbol} {currency.code})</label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{currency.symbol}</span>
                     <input
                       type="text"
                       placeholder="0.00"
@@ -897,7 +900,7 @@ export default function GroupDetailsPage() {
                         {status.checked && watchSplitMethod !== 'equal' && (
                           <div className="relative w-24 flex items-center">
                             {watchSplitMethod === 'exact' && (
-                              <span className="absolute left-2.5 text-[10px] font-bold text-slate-400">$</span>
+                              <span className="absolute left-2.5 text-[10px] font-bold text-slate-400">{currency.symbol}</span>
                             )}
                             <input
                               type="text"
@@ -1044,9 +1047,9 @@ export default function GroupDetailsPage() {
 
                 {/* Amount */}
                 <div className="space-y-1.5 col-span-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Payment Amount ($ USD)</label>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Payment Amount ({currency.symbol} {currency.code})</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">$</span>
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{currency.symbol}</span>
                     <input
                       type="text"
                       placeholder="0.00"

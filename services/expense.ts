@@ -75,7 +75,7 @@ export async function createExpense(
       group_id: expenseInput.group_id,
       performed_by: currentUser.id,
       action: 'expense_created',
-      description: `Expense "${expenseInput.title}" ($${expenseInput.amount.toFixed(2)}) was added by ${profile?.display_name || 'a member'}`,
+      description: `Expense "${expenseInput.title}" (${expenseInput.amount.toFixed(2)}) was added by ${profile?.display_name || 'a member'}`,
     });
 
   return { data: expense as Expense, error: null };
@@ -159,7 +159,7 @@ export async function deleteExpense(
         group_id: groupId,
         performed_by: currentUser.id,
         action: 'expense_deleted',
-        description: `Expense "${expense.title}" ($${Number(expense.amount).toFixed(2)}) was deleted`,
+        description: `Expense "${expense.title}" (${Number(expense.amount).toFixed(2)}) was deleted`,
       });
   }
 

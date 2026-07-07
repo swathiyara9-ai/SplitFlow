@@ -40,7 +40,7 @@ export async function getDashboardData(supabase: SupabaseClient): Promise<Dashbo
     supabase.from('group_members').select('*, profiles (*)').in('group_id', groupIds),
     supabase.from('expenses').select('*').in('group_id', groupIds),
     supabase.from('settlements').select('*').in('group_id', groupIds),
-    supabase.from('activity_logs').select('*, profiles:performed_by (*)').in('group_id', groupIds).order('created_at', { ascending: false }).limit(10),
+    supabase.from('activity_logs').select('*, profiles:performed_by (*)').in('group_id', groupIds).order('created_at', { ascending: false }).limit(20),
   ]);
 
   if (membersError || expensesError || settlementsError || activitiesError) {
