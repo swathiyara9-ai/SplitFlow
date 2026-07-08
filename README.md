@@ -1,5 +1,7 @@
 # SplitFlow — Premium Shared Ledgers Architecture
 
+Live Demo: https://split-flow-delta.vercel.app/
+
 SplitFlow is a minimal, premium expense-sharing application (Splitwise alternative) focusing on visual excellence, clean architecture, and a simplified user experience using Next.js 15, React 19, and Supabase.
 
 Unlike Splitwise, SplitFlow has **no phone number inputs, no contact syncing, and no invitations**. Every user receives a permanent **Unique User ID** immediately upon registration (e.g., `SPL-A73KF9`) and can be added to groups instantly.
@@ -85,12 +87,3 @@ Row Level Security (RLS) is fully configured for every table. Users can only que
 
 ---
 
-## Deployment to Vercel
-
-The application is fully compatible with Vercel and can be deployed in under a minute:
-1. Push your project files to a GitHub repository.
-2. Log in to Vercel, select **Add New Project**, and import your repository.
-3. In the environment variables settings on Vercel, add:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Click **Deploy**. Vercel will build your static pages and server components automatically.
