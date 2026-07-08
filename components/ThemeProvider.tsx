@@ -21,14 +21,18 @@ export function ThemeProvider({
   defaultTheme?: Theme;
   storageKey?: string;
 }) {
-  const [theme, setTheme] = useState<Theme>(
-    () => {
-      if (typeof window !== 'undefined') {
-        return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
-      }
-      return defaultTheme;
+  // Always start with defaultTheme on both server and client's first render,
+  // so the initial HTML matches exactly and there's no hydration mismatch.
+  const [theme, setThemeState] = useState<Theme>(defaultTheme);
+
+  // After mount (client-only), read the real stored preference and update.
+  useEffect(() => {
+    const stored = localStorage.getItem(storageKey) as Theme | null;
+    if (stored && stored !== theme) {
+      setThemeState(stored);
     }
-  );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -49,11 +53,9 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(storageKey, theme);
-      }
-      setTheme(theme);
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem(storageKey, newTheme);
+      setThemeState(newTheme);
     },
   };
 
