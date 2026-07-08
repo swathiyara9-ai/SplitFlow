@@ -108,7 +108,7 @@ export function Toaster() {
             </div>
             <button
               onClick={() => setToasts((prev) => prev.filter((item) => item.id !== t.id))}
-              className="text-slate-400 hover:text-slate-200 p-1 rounded-lg transition-colors"
+              className="text-stone-400 hover:text-stone-200 p-1 rounded-lg transition-colors"
             >
               <X className="w-3.5 h-3.5" />
             </button>

@@ -94,10 +94,10 @@ export default function ProfilePage() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <div className="h-10 w-48 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
+        <div className="h-10 w-48 bg-stone-200 dark:bg-stone-800 rounded animate-pulse"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="h-64 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-64 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+          <div className="h-64 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-64 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
         </div>
       </div>
     );
@@ -107,34 +107,34 @@ export default function ProfilePage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold tracking-tight">Identity Node</h2>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Manage your credentials and view your permanent sharing ID.</p>
+        <p className="text-xs text-stone-500 dark:text-stone-400">Manage your credentials and view your permanent sharing ID.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Fintech Virtual ID Card */}
-        <div className="relative overflow-hidden rounded-premium bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-6 md:p-8 text-white shadow-2xl flex flex-col justify-between h-72 border border-white/5 group">
+        <div className="relative overflow-hidden rounded-premium bg-gradient-to-br from-stone-900 via-stone-950 to-stone-950 p-6 md:p-8 text-white shadow-2xl flex flex-col justify-between h-72 border border-white/5 group">
           {/* Ambient card lights */}
           <div className="absolute -top-1/2 -right-1/2 w-full h-full rounded-full bg-primary/10 blur-[80px] group-hover:bg-primary/20 transition-all duration-500"></div>
           
           <div className="flex justify-between items-start z-10">
             <div className="space-y-1">
-              <span className="text-[9px] bg-white/10 text-slate-300 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+              <span className="text-[9px] bg-white/10 text-stone-300 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                 SplitFlow Core
               </span>
-              <h3 className="text-lg font-bold tracking-tight mt-1 text-slate-100">Permanent ID Node</h3>
+              <h3 className="text-lg font-bold tracking-tight mt-1 text-stone-100">Permanent ID Node</h3>
             </div>
-            <QrCode className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+            <QrCode className="w-8 h-8 text-stone-400 dark:text-stone-500" />
           </div>
 
           <div className="z-10 space-y-4">
             <div className="space-y-1">
-              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Unique User ID</span>
+              <span className="text-[9px] text-stone-500 font-bold uppercase tracking-wider block">Unique User ID</span>
               <div className="flex items-center gap-3">
-                <span className="text-2xl font-mono font-bold tracking-wider text-slate-100">{profile?.unique_user_id}</span>
+                <span className="text-2xl font-mono font-bold tracking-wider text-stone-100">{profile?.unique_user_id}</span>
                 <button
                   onClick={handleCopyId}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-colors"
+                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-stone-300 transition-colors"
                   title="Copy ID to Clipboard"
                 >
                   {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
@@ -144,10 +144,10 @@ export default function ProfilePage() {
 
             <div className="flex justify-between items-end">
               <div className="space-y-0.5">
-                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Node Owner</span>
-                <p className="text-sm font-bold text-slate-200">{profile?.display_name}</p>
+                <span className="text-[9px] text-stone-500 font-bold uppercase tracking-wider block">Node Owner</span>
+                <p className="text-sm font-bold text-stone-200">{profile?.display_name}</p>
               </div>
-              <span className="text-[9px] text-slate-500 font-semibold">Registered {new Date(profile?.created_at || '').toLocaleDateString()}</span>
+              <span className="text-[9px] text-stone-500 font-semibold">Registered {new Date(profile?.created_at || '').toLocaleDateString()}</span>
             </div>
           </div>
         </div>
@@ -162,14 +162,14 @@ export default function ProfilePage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Display Name */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Display Name</label>
+              <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Display Name</label>
               <div className="relative">
-                <User className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <User className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                   type="text"
                   placeholder="Jane Doe"
                   {...register('display_name')}
-                  className="w-full text-xs font-semibold bg-slate-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full text-xs font-semibold bg-stone-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
               {errors.display_name && (
@@ -179,14 +179,14 @@ export default function ProfilePage() {
 
             {/* Email (Read Only) */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Email Coordinates (Permanent)</label>
+              <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Email Coordinates (Permanent)</label>
               <div className="relative">
-                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Mail className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                   type="email"
                   value={profile?.email}
                   disabled
-                  className="w-full text-xs font-semibold bg-slate-200/50 dark:bg-slate-900/50 border border-black/5 dark:border-white/5 rounded-xl pl-11 pr-4 py-3 text-slate-500 cursor-not-allowed"
+                  className="w-full text-xs font-semibold bg-stone-200/50 dark:bg-stone-900/50 border border-black/5 dark:border-white/5 rounded-xl pl-11 pr-4 py-3 text-stone-500 cursor-not-allowed"
                 />
               </div>
             </div>

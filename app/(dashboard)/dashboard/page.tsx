@@ -124,15 +124,15 @@ function DashboardContent() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <div className="h-10 w-48 bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse"></div>
+        <div className="h-10 w-48 bg-stone-200 dark:bg-stone-800 rounded-xl animate-pulse"></div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-96 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-96 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+          <div className="lg:col-span-2 h-96 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-96 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
         </div>
       </div>
     );
@@ -177,16 +177,16 @@ function DashboardContent() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold tracking-tight">Welcome back, {profile?.display_name || 'User'} 👋</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Here is your shared financial standing across all groups.</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400">Here is your shared financial standing across all groups.</p>
         </div>
         
         {/* ID copy badge */}
         <div className="flex items-center gap-2.5 self-start sm:self-auto px-3.5 py-2 glass-panel rounded-premium">
-          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Your ID:</span>
+          <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Your ID:</span>
           <span className="text-xs font-mono font-bold text-primary">{profile?.unique_user_id}</span>
           <button 
             onClick={handleCopyId}
-            className="text-slate-400 hover:text-primary transition-colors p-1 hover:bg-slate-100/50 dark:hover:bg-slate-900/50 rounded-lg"
+            className="text-stone-400 hover:text-primary transition-colors p-1 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 rounded-lg"
             title="Copy ID to Clipboard"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
@@ -201,9 +201,9 @@ function DashboardContent() {
           <div className="absolute -right-4 -bottom-4 text-success/5 pointer-events-none">
             <ArrowUpRight className="w-24 h-24" />
           </div>
-          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">You Are Owed</span>
+          <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">You Are Owed</span>
           <h3 className="text-2xl font-bold mt-1 text-success tracking-tight">{format(balances.owedToMe)}</h3>
-          <p className="text-[11px] text-slate-400 mt-2">Accumulated receivables</p>
+          <p className="text-[11px] text-stone-400 mt-2">Accumulated receivables</p>
         </div>
 
         {/* You owe */}
@@ -211,16 +211,16 @@ function DashboardContent() {
           <div className="absolute -right-4 -bottom-4 text-danger/5 pointer-events-none">
             <ArrowDownLeft className="w-24 h-24" />
           </div>
-          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">You Owe Others</span>
+          <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">You Owe Others</span>
           <h3 className="text-2xl font-bold mt-1 text-danger tracking-tight">{format(balances.iOwe)}</h3>
-          <p className="text-[11px] text-slate-400 mt-2">Pending settlement debts</p>
+          <p className="text-[11px] text-stone-400 mt-2">Pending settlement debts</p>
         </div>
 
         {/* Net */}
         <div className={`rounded-premium p-5 relative overflow-hidden text-white border-none ${
           balances.netBalance >= 0 
-            ? 'bg-gradient-to-tr from-primary to-purple-500 shadow-md shadow-primary/20' 
-            : 'bg-slate-900 dark:bg-slate-950 border border-white/5 shadow-layered'
+            ? 'bg-gradient-to-tr from-primary to-orange-500 shadow-md shadow-primary/20' 
+            : 'bg-stone-900 dark:bg-stone-950 border border-white/5 shadow-layered'
         }`}>
           <div className="absolute -right-4 -bottom-4 text-white/10 pointer-events-none">
             <Wallet className="w-24 h-24" />
@@ -240,7 +240,7 @@ function DashboardContent() {
         {/* Active Groups Column */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
               {hasSearch ? `Search Results for "${searchQuery}"` : 'Shared Groups'}
             </h3>
             <Link 
@@ -253,9 +253,9 @@ function DashboardContent() {
 
           {hasSearch && !hasSearchResults ? (
             <div className="glass-panel rounded-premium p-8 text-center space-y-3 shadow-layered">
-              <Search className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto" />
+              <Search className="w-8 h-8 text-stone-300 dark:text-stone-700 mx-auto" />
               <h4 className="text-sm font-bold">No results found for &quot;{searchQuery}&quot;</h4>
-              <p className="text-xs text-slate-500 max-w-xs mx-auto">
+              <p className="text-xs text-stone-500 max-w-xs mx-auto">
                 Try a group name, expense title, member name, or SPL user ID.
               </p>
             </div>
@@ -266,7 +266,7 @@ function DashboardContent() {
               </div>
               <div className="space-y-1">
                 <h4 className="text-sm font-bold">No active groups</h4>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                <p className="text-xs text-stone-500 max-w-xs mx-auto">
                   Get started by creating a shared group and inviting members via their Unique ID.
                 </p>
               </div>
@@ -296,15 +296,15 @@ function DashboardContent() {
                         <span className="text-[9px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                           Group
                         </span>
-                        <span className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold">
+                        <span className="text-[10px] text-stone-400 flex items-center gap-1 font-semibold">
                           <Users className="w-3 h-3" /> {membersCount}
                         </span>
                       </div>
-                      <h4 className="text-sm font-bold mt-2 text-slate-900 dark:text-slate-100 truncate">
+                      <h4 className="text-sm font-bold mt-2 text-stone-900 dark:text-stone-100 truncate">
                         {group.name}
                       </h4>
                       {group.description && (
-                        <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                        <p className="text-[11px] text-stone-400 line-clamp-1 mt-0.5">
                           {group.description}
                         </p>
                       )}
@@ -312,13 +312,13 @@ function DashboardContent() {
                     
                     <div className="flex items-end justify-between pt-4 border-t border-black/5 dark:border-white/5">
                       <div>
-                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Your Standing</span>
+                        <span className="text-[9px] text-stone-400 font-bold uppercase tracking-wider">Your Standing</span>
                         <p className={`text-xs font-bold ${
                           groupNet > 0.01 
                             ? 'text-success' 
                             : groupNet < -0.01 
                             ? 'text-danger' 
-                            : 'text-slate-400'
+                            : 'text-stone-400'
                         }`}>
                           {groupNet > 0.01 
                             ? `Owed ${format(groupNet)}` 
@@ -327,7 +327,7 @@ function DashboardContent() {
                             : 'Settled'}
                         </p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                      <ChevronRight className="w-4 h-4 text-stone-400" />
                     </div>
                   </Link>
                 );
@@ -339,7 +339,7 @@ function DashboardContent() {
                 <div className="space-y-3">
                   {searchResults.expenses.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Matching Expenses</h4>
+                      <h4 className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Matching Expenses</h4>
                       {searchResults.expenses.map(({ group, expense }) => (
                         <Link
                           key={expense.id}
@@ -348,7 +348,7 @@ function DashboardContent() {
                         >
                           <div className="min-w-0">
                             <p className="text-xs font-bold truncate">{expense.title}</p>
-                            <p className="text-[10px] text-slate-400 truncate">
+                            <p className="text-[10px] text-stone-400 truncate">
                               {group.name}{expense.description ? ` - ${expense.description}` : ''}
                             </p>
                           </div>
@@ -360,7 +360,7 @@ function DashboardContent() {
 
                   {searchResults.members.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Matching Members</h4>
+                      <h4 className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Matching Members</h4>
                       {searchResults.members.map(({ group, member }) => (
                         <Link
                           key={`${group.id}-${member.user_id}`}
@@ -369,7 +369,7 @@ function DashboardContent() {
                         >
                           <div className="min-w-0">
                             <p className="text-xs font-bold truncate">{member.profiles?.display_name || 'Member'}</p>
-                            <p className="text-[10px] text-slate-400 truncate">{group.name}</p>
+                            <p className="text-[10px] text-stone-400 truncate">{group.name}</p>
                           </div>
                           <span className="text-[10px] font-mono font-bold text-primary shrink-0">
                             {member.profiles?.unique_user_id || 'SPL-UNKNOWN'}
@@ -390,13 +390,13 @@ function DashboardContent() {
           <div className="glass-panel rounded-premium p-5 shadow-layered space-y-4">
             <div className="flex items-center gap-2">
               <PieChart className="w-4 h-4 text-primary" />
-              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Spend by Category</h3>
+              <h3 className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Spend by Category</h3>
             </div>
 
             {categories.length === 0 ? (
               <div className="text-center py-4">
-                <DollarSign className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
-                <p className="text-[11px] text-slate-400">No expenses recorded yet.</p>
+                <DollarSign className="w-8 h-8 text-stone-300 dark:text-stone-700 mx-auto mb-2" />
+                <p className="text-[11px] text-stone-400">No expenses recorded yet.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -406,7 +406,7 @@ function DashboardContent() {
                       <span className="capitalize">{c.name}</span>
                       <span>{format(c.value)} ({c.percentage}%)</span>
                     </div>
-                    <div className="w-full bg-slate-100 dark:bg-slate-900 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-stone-100 dark:bg-stone-900 h-1.5 rounded-full overflow-hidden">
                       <div 
                         className="bg-primary h-full rounded-full transition-all" 
                         style={{ width: `${c.percentage}%` }}
@@ -422,29 +422,29 @@ function DashboardContent() {
           <div ref={activityRef} className="glass-panel rounded-premium p-5 shadow-layered space-y-4 scroll-mt-24">
             <div className="flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
-              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                 {isActivityView ? 'Activity Feed' : 'Recent Activity'}
               </h3>
             </div>
 
             {activities.length === 0 ? (
               <div className="text-center py-4">
-                <Sparkles className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
-                <p className="text-[11px] text-slate-400">No activities logged yet.</p>
+                <Sparkles className="w-8 h-8 text-stone-300 dark:text-stone-700 mx-auto mb-2" />
+                <p className="text-[11px] text-stone-400">No activities logged yet.</p>
               </div>
             ) : (
-              <div className="relative border-l-2 border-slate-100 dark:border-slate-900 pl-4 ml-1 space-y-4">
+              <div className="relative border-l-2 border-stone-100 dark:border-stone-900 pl-4 ml-1 space-y-4">
                 {visibleActivities.map((act) => (
                   <div key={act.id} className="relative text-xs space-y-0.5">
                     {/* Circle icon marker */}
-                    <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white dark:ring-slate-950"></span>
-                    <p className="font-semibold text-slate-800 dark:text-slate-200">
+                    <span className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white dark:ring-stone-950"></span>
+                    <p className="font-semibold text-stone-800 dark:text-stone-200">
                       {act.description
                         .replace(/\$/g, currency.symbol)
                         .replace(/\((\d+(?:\.\d{2})?)\)/g, `(${currency.symbol}$1)`)
                         .replace(/\bfor (\d+(?:\.\d{2})?)\b/g, `for ${currency.symbol}$1`)}
                     </p>
-                    <span className="text-[10px] text-slate-400 block">
+                    <span className="text-[10px] text-stone-400 block">
                       {new Date(act.created_at).toLocaleDateString(undefined, { 
                         month: 'short', 
                         day: 'numeric',
@@ -467,15 +467,15 @@ export default function DashboardPage() {
   return (
     <Suspense fallback={
       <div className="space-y-6">
-        <div className="h-10 w-64 bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse"></div>
+        <div className="h-10 w-64 bg-stone-200 dark:bg-stone-800 rounded-xl animate-pulse"></div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-96 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-          <div className="h-96 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+          <div className="lg:col-span-2 h-96 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+          <div className="h-96 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
         </div>
       </div>
     }>

@@ -107,20 +107,20 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6 overflow-hidden">
+    <div className="relative min-h-screen bg-stone-950 text-stone-100 flex items-center justify-center p-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[-30%] right-[-20%] w-[80vw] h-[80vw] rounded-full bg-primary/10 blur-[130px]"></div>
-        <div className="absolute bottom-[-30%] left-[-20%] w-[70vw] h-[70vw] rounded-full bg-purple-600/10 blur-[110px]"></div>
+        <div className="absolute bottom-[-30%] left-[-20%] w-[70vw] h-[70vw] rounded-full bg-orange-600/10 blur-[110px]"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-md">
         <div className="flex flex-col items-center gap-3 mb-8 text-center">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary to-purple-400 flex items-center justify-center text-white shadow-lg">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary to-orange-400 flex items-center justify-center text-white shadow-lg">
             <Shield className="w-5 h-5" />
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight">Set New Password</h1>
-            <p className="text-xs text-slate-400">Enter and confirm your new password below</p>
+            <p className="text-xs text-stone-400">Enter and confirm your new password below</p>
           </div>
         </div>
 
@@ -156,14 +156,14 @@ export default function ResetPasswordPage() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">New Password</label>
+              <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">New Password</label>
               <div className="relative">
-                <KeyRound className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <KeyRound className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                   type="password"
                   placeholder="••••••••"
                   {...register('password')}
-                  className="w-full text-xs font-semibold bg-slate-950/20 border border-white/10 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary/50 placeholder:text-slate-600"
+                  className="w-full text-xs font-semibold bg-stone-950/20 border border-white/10 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary/50 placeholder:text-stone-600"
                 />
               </div>
               {errors.password && (
@@ -172,14 +172,14 @@ export default function ResetPasswordPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Confirm New Password</label>
+              <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Confirm New Password</label>
               <div className="relative">
-                <KeyRound className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <KeyRound className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
                 <input
                   type="password"
                   placeholder="••••••••"
                   {...register('confirm_password')}
-                  className="w-full text-xs font-semibold bg-slate-950/20 border border-white/10 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary/50 placeholder:text-slate-600"
+                  className="w-full text-xs font-semibold bg-stone-950/20 border border-white/10 rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary/50 placeholder:text-stone-600"
                 />
               </div>
               {errors.confirm_password && (

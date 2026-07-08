@@ -85,11 +85,11 @@ export default function Header({ profile }: HeaderProps) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden p-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="md:hidden p-1.5 text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
           >
             <Menu className="w-5 h-5" />
           </button>
-          <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-tight">
+          <span className="text-xs font-semibold text-stone-400 dark:text-stone-500 tracking-tight">
             {getBreadcrumb()}
           </span>
         </div>
@@ -97,20 +97,20 @@ export default function Header({ profile }: HeaderProps) {
         <div className="flex items-center gap-3">
           {/* Global Search Bar */}
           <form onSubmit={handleSearchSubmit} className="relative hidden sm:block">
-            <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
             <input
               type="text"
               placeholder="Search ID, groups, bills..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-48 text-[11px] font-semibold bg-slate-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-9 pr-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:w-60 transition-all duration-300"
+              className="w-48 text-[11px] font-semibold bg-stone-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-9 pr-4 py-1.5 focus:outline-none focus:ring-1 focus:ring-primary/40 focus:w-60 transition-all duration-300"
             />
           </form>
 
           {/* Quick notification trigger (points to Activity feed) */}
           <Link
             href="/dashboard?view=activity"
-            className="p-2 glass-panel rounded-xl text-slate-600 dark:text-slate-300 relative shadow-sm hover:bg-slate-100/50 dark:hover:bg-slate-900/50"
+            className="p-2 glass-panel rounded-xl text-stone-600 dark:text-stone-300 relative shadow-sm hover:bg-stone-100/50 dark:hover:bg-stone-900/50"
           >
             {hasUnreadActivity && (
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-danger animate-pulse"></span>
@@ -123,13 +123,13 @@ export default function Header({ profile }: HeaderProps) {
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 md:hidden bg-black/40 backdrop-blur-sm flex">
-          <div className="w-64 bg-white dark:bg-slate-950 h-full p-4 flex flex-col shadow-xl">
+          <div className="w-64 bg-white dark:bg-stone-950 h-full p-4 flex flex-col shadow-xl">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
-              <span className="text-xs font-bold tracking-wider uppercase text-slate-400">SplitFlow Menu</span>
+              <span className="text-xs font-bold tracking-wider uppercase text-stone-400">SplitFlow Menu</span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900"
+                className="p-1 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-900"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -148,13 +148,13 @@ export default function Header({ profile }: HeaderProps) {
 
             {/* Search for mobile */}
             <form onSubmit={handleSearchSubmit} className="relative mb-6">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs font-semibold bg-slate-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-8 pr-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary/40"
+                className="w-full text-xs font-semibold bg-stone-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl pl-8 pr-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary/40"
               />
             </form>
 
@@ -170,7 +170,7 @@ export default function Header({ profile }: HeaderProps) {
                     className={`flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl transition-all ${
                       isActive
                         ? 'text-primary bg-primary/10 dark:bg-primary/20'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-900/50'
+                        : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/50 dark:hover:bg-stone-900/50'
                     }`}
                   >
                     <item.icon className="w-4 h-4" />

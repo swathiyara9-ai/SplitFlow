@@ -4,17 +4,17 @@ import { ArrowRight, DollarSign, Shield, Zap, Sparkles } from 'lucide-react';
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between overflow-hidden">
+    <div className="relative min-h-screen bg-stone-950 text-stone-100 flex flex-col justify-between overflow-hidden">
       {/* Background Ambient Gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-primary/10 blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-purple-600/10 blur-[100px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-orange-600/10 blur-[100px]"></div>
       </div>
 
       {/* Navbar */}
       <header className="relative z-10 w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary to-purple-400 flex items-center justify-center text-white shadow-md shadow-primary/20">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary to-orange-400 flex items-center justify-center text-white shadow-md shadow-primary/20">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -22,7 +22,7 @@ export default function LandingPage() {
           <span className="text-base font-bold tracking-tight">SplitFlow</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link href="/login" className="text-xs font-semibold text-slate-400 hover:text-slate-100 transition-colors">
+          <Link href="/login" className="text-xs font-semibold text-stone-400 hover:text-stone-100 transition-colors">
             Sign In
           </Link>
           <Link
@@ -47,7 +47,7 @@ export default function LandingPage() {
             Shared expense splitting, <br />
             <span className="gradient-text">engineered with precision.</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-400 max-w-xl mx-auto font-medium">
+          <p className="text-sm md:text-base text-stone-400 max-w-xl mx-auto font-medium">
             Ditch contact syncs, invites, and telephone matrices. Track shared ledger entries cleanly with a permanent, secure Unique User ID.
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function LandingPage() {
               <Shield className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold">Privacy First ID</h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-stone-400">
               No phone numbers. No contact harvesting. Add friends and members instantly using a secure permanent unique ID.
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function LandingPage() {
               <DollarSign className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold">Granular Splitting</h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-stone-400">
               Support for equal, exact cash value, and percentage splits. Let our optimized ledger calculate debt structures instantly.
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function LandingPage() {
               <Zap className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold">Vercel & Supabase Sync</h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-stone-400">
               Instant real-time synchronization on all expenses, settlement statuses, and group logs. High speed, premium caching.
             </p>
           </div>
@@ -105,11 +105,11 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full max-w-6xl mx-auto px-6 py-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px] font-semibold">
+      <footer className="relative z-10 w-full max-w-6xl mx-auto px-6 py-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-stone-500 text-[11px] font-semibold">
         <span>© {new Date().getFullYear()} SplitFlow. Supabase Certified.</span>
         <div className="flex gap-4">
-          <Link href="/login" className="hover:text-slate-300">Client Access</Link>
-          <Link href="/signup" className="hover:text-slate-300">Sign Up</Link>
+          <Link href="/login" className="hover:text-stone-300">Client Access</Link>
+          <Link href="/signup" className="hover:text-stone-300">Sign Up</Link>
         </div>
       </footer>
     </div>

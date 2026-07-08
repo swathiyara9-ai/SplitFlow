@@ -4,28 +4,28 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --radius-premium: 22px;
   
-  --color-primary: #6C63FF;
-  --color-primary-hover: #5A52E6;
-  --color-success: #22C55E;
+  --color-primary: #C2410C;
+  --color-primary-hover: #9A3412;
+  --color-success: #15803D;
   --color-warning: #F59E0B;
-  --color-danger: #EF4444;
+  --color-danger: #9F1239;
   
   --shadow-layered: 0 4px 30px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   --shadow-layered-dark: 0 10px 40px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 :root {
-  --bg-gradient: linear-gradient(180deg, #F9FAFB 0%, #F3F4F6 100%);
-  --text-main: #1F2937;
+  --bg-gradient: linear-gradient(180deg, #FAF8F3 0%, #F3EEE4 100%);
+  --text-main: #292524;
   --border-glass: rgba(0, 0, 0, 0.06);
   --bg-glass: rgba(255, 255, 255, 0.45);
 }
 
 .dark {
-  --bg-gradient: linear-gradient(180deg, #090D16 0%, #030712 100%);
-  --text-main: #F9FAFB;
+  --bg-gradient: linear-gradient(180deg, #0F0D0B 0%, #030201 100%);
+  --text-main: #FAFAF9;
   --border-glass: rgba(255, 255, 255, 0.06);
-  --bg-glass: rgba(15, 23, 42, 0.45);
+  --bg-glass: rgba(28, 25, 23, 0.45);
 }
 
 body {
@@ -37,7 +37,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Glassmorphism primitives */
 .glass-panel {
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
@@ -58,10 +57,9 @@ body {
 }
 
 .dark .glass-nav {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(28, 25, 23, 0.6);
 }
 
-/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -72,7 +70,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(108, 99, 255, 0.15);
+  background: rgba(194, 65, 12, 0.15);
   border-radius: 10px;
 }
 
@@ -81,17 +79,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(108, 99, 255, 0.3);
+  background: rgba(194, 65, 12, 0.3);
 }
 
-/* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #6C63FF 0%, #A78BFA 100%);
+  background: linear-gradient(135deg, #C2410C 0%, #EA580C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom transitions */
 .smooth-hover {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }

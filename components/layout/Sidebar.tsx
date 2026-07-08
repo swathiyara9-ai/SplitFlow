@@ -24,17 +24,17 @@ export default function Sidebar({ profile }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-64 fixed inset-y-0 left-0 z-30 p-4 hidden md:flex flex-col border-r border-black/5 dark:border-white/5 bg-white/20 dark:bg-slate-950/20 backdrop-blur-xl">
+    <aside className="w-64 fixed inset-y-0 left-0 z-30 p-4 hidden md:flex flex-col border-r border-black/5 dark:border-white/5 bg-white/20 dark:bg-stone-950/20 backdrop-blur-xl">
       {/* Brand header */}
       <div className="flex items-center gap-3 px-3 py-4 mb-4">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-purple-400 flex items-center justify-center text-white shadow-md shadow-primary/20">
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-orange-400 flex items-center justify-center text-white shadow-md shadow-primary/20">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div>
           <h1 className="text-sm font-bold tracking-tight">SplitFlow</h1>
-          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold tracking-wider uppercase">Premium Ledgers</span>
+          <span className="text-[10px] text-stone-400 dark:text-stone-500 font-semibold tracking-wider uppercase">Premium Ledgers</span>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export default function Sidebar({ profile }: SidebarProps) {
               className={`flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl transition-all ${
                 isActive
                   ? 'text-primary bg-primary/10 dark:bg-primary/20'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-900/50'
+                  : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/50 dark:hover:bg-stone-900/50'
               }`}
             >
               <item.icon className="w-4 h-4" />
@@ -73,7 +73,7 @@ export default function Sidebar({ profile }: SidebarProps) {
       {/* Theme and Logout Controls */}
       <div className="pt-4 border-t border-black/5 dark:border-white/5 space-y-2">
         {/* Theme Toggle Button */}
-        <div className="flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 rounded-xl hover:bg-slate-100/50 dark:hover:bg-slate-900/50">
+        <div className="flex items-center justify-between px-3 py-2 text-xs font-semibold text-stone-500 dark:text-stone-400 rounded-xl hover:bg-stone-100/50 dark:hover:bg-stone-900/50">
           <span className="flex items-center gap-3">
             {theme === 'light' && <Sun className="w-4 h-4" />}
             {theme === 'dark' && <Moon className="w-4 h-4" />}
@@ -83,7 +83,7 @@ export default function Sidebar({ profile }: SidebarProps) {
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value as any)}
-            className="text-[10px] bg-slate-200/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 px-1.5 py-0.5 rounded border-none focus:ring-1 focus:ring-primary focus:outline-none"
+            className="text-[10px] bg-stone-200/50 dark:bg-stone-800/50 text-stone-700 dark:text-stone-200 px-1.5 py-0.5 rounded border-none focus:ring-1 focus:ring-primary focus:outline-none"
           >
             <option value="system">System</option>
             <option value="light">Light</option>

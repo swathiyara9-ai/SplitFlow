@@ -29,7 +29,7 @@ export default async function DashboardLayout({
       {/* Background ambient accents */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute -top-[40%] -right-[20%] w-[80vw] h-[80vw] rounded-full bg-gradient-to-br from-primary/10 to-transparent opacity-70 blur-[120px]"></div>
-        <div className="absolute -bottom-[30%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-purple-500/10 to-transparent opacity-50 blur-[100px]"></div>
+        <div className="absolute -bottom-[30%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-orange-500/10 to-transparent opacity-50 blur-[100px]"></div>
       </div>
 
       {/* Desktop Sidebar */}

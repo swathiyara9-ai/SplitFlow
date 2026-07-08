@@ -77,7 +77,7 @@ export default function GroupsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold tracking-tight">Ledger Channels</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Establish and manage shared expense groups.</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400">Establish and manage shared expense groups.</p>
         </div>
         {!showCreateForm && (
           <button
@@ -100,7 +100,7 @@ export default function GroupsPage() {
               </div>
               <button
                 onClick={() => setShowCreateForm(false)}
-                className="text-xs text-slate-400 hover:text-slate-200"
+                className="text-xs text-stone-400 hover:text-stone-200"
               >
                 Cancel
               </button>
@@ -108,12 +108,12 @@ export default function GroupsPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Group Name</label>
+                <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Group Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Iceland Road Trip 2026"
                   {...register('name')}
-                  className="w-full text-xs font-semibold bg-slate-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full text-xs font-semibold bg-stone-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 {errors.name && (
                   <p className="text-[10px] text-danger font-semibold">{errors.name.message}</p>
@@ -121,12 +121,12 @@ export default function GroupsPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Description</label>
+                <label className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Description</label>
                 <textarea
                   placeholder="e.g. Shared diesel, cabin stays, and groceries split between crew members."
                   rows={3}
                   {...register('description')}
-                  className="w-full text-xs font-semibold bg-slate-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full text-xs font-semibold bg-stone-950/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
 
@@ -150,12 +150,12 @@ export default function GroupsPage() {
 
         {/* Groups List Column */}
         <div className={showCreateForm ? 'lg:col-span-2 space-y-4' : 'lg:col-span-3 space-y-4'}>
-          <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Your Active Ledgers</h3>
+          <h3 className="text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Your Active Ledgers</h3>
 
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
-              <div className="h-32 bg-slate-200 dark:bg-slate-800 rounded-premium animate-pulse"></div>
+              <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
+              <div className="h-32 bg-stone-200 dark:bg-stone-800 rounded-premium animate-pulse"></div>
             </div>
           ) : groups.length === 0 ? (
             <div className="glass-panel p-12 text-center rounded-premium space-y-4 shadow-layered">
@@ -164,7 +164,7 @@ export default function GroupsPage() {
               </div>
               <div className="space-y-1">
                 <h4 className="text-sm font-bold">No groups found</h4>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                <p className="text-xs text-stone-500 max-w-xs mx-auto">
                   You are not a member of any shared expense ledgers. Create one to begin tracking.
                 </p>
               </div>
@@ -189,17 +189,17 @@ export default function GroupsPage() {
                     <span className="text-[9px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                       Shared Channel
                     </span>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
+                    <h4 className="text-sm font-bold text-stone-900 dark:text-stone-100 truncate">
                       {group.name}
                     </h4>
                     {group.description && (
-                      <p className="text-[11px] text-slate-400 line-clamp-1">
+                      <p className="text-[11px] text-stone-400 line-clamp-1">
                         {group.description}
                       </p>
                     )}
                   </div>
-                  <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center shrink-0">
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <div className="w-8 h-8 rounded-xl bg-stone-100 dark:bg-stone-900 flex items-center justify-center shrink-0">
+                    <ChevronRight className="w-4 h-4 text-stone-400" />
                   </div>
                 </Link>
               ))}
